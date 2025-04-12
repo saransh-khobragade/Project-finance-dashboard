@@ -1,46 +1,83 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import "./App.css";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const [barData, setBarData] = useState<any>({});
+  const [pieData, setPieData] = useState<{ id: number; value: number; label: string }[]>([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/finance-data");
+        const data = await response.json();
+
+        setBarData(data.barChart);
+        setPieData(data.pieChart);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!barData || !barData.columns || !barData.values) {
+    return <p>Error: Invalid data format</p>;
+  }
+  
   return (
     <>
-      <div>
-        <BarChart
-          xAxis={[
-            {
-              id: "barCategories",
-              data: ["Credit", "Debit"],
-              scaleType: "band",
-            },
-          ]}
-          series={[
-            {
-              data: [2, 5],
-            },
-          ]}
-          width={500}
-          height={300}
-        />
-      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "20px",
+          border: "1px solid black",
+          padding: "20px",
+        }}
+      >
+        {barData ? (
+          <div>
+            <BarChart
+              xAxis={[
+                {
+                  id: "barCategories",
+                  data: barData.columns,
+                  scaleType: "band",
+                },
+              ]}
+              series={[
+                {
+                  data: barData.values,
+                },
+              ]}
+              width={500}
+              height={300}
+            />
+          </div>
+        ) : null}
 
-      <div>
+        <div>
         <PieChart
           series={[
             {
-              data: [
-                { id: 0, value: 10, label: "series A" },
-                { id: 1, value: 15, label: "series B" },
-                { id: 2, value: 20, label: "series C" },
-              ],
+              data: pieData,
             },
           ]}
           width={400}
           height={200}
         />
+      </div>
       </div>
     </>
   );
