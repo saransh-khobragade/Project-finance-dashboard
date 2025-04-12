@@ -32,7 +32,7 @@ function App() {
   }
 
   if (!barData || !barData.columns || !barData.values) {
-    return <p>Error: Invalid data format</p>;
+    return <p>BE not working</p>;
   }
   
   return (
