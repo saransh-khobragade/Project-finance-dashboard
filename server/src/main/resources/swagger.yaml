@@ -1,0 +1,70 @@
+openapi: 3.0.1
+info:
+  title: Personal Finance Dashboard
+  description: |-
+    This is a personal finance managing dashboard used to show balance credit/debit and major expenses
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+tags:
+  - name: Dashboard
+    description: Everything about your Finance
+paths:
+  /finance/dashboard:
+    get:
+      tags:
+        - Dashboard
+      summary: Get finance dashboard
+      description: Get finance dashboard
+      operationId: getFinanceDashboard
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+components:
+  schemas:
+    Dashboard:
+      type: object
+      properties:
+        barChart:
+          type: object
+          properties:
+            columns:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/BarChartCategory'
+            values:
+              type: array
+              items:
+                type: integer
+        pieChart:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              value:
+                type: integer
+              label:
+                $ref: '#/components/schemas/PieChartCategory'
+
+    BarChartCategory:
+      type: string
+      description: Bar Chart Category
+      enum:
+        - debit
+        - credit
+
+    PieChartCategory:
+      type: string
+      description: Bar Chart Category
+      enum:
+        - Food
+        - Utility
+        - Mics
+

@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/finance-data");
+        const response = await fetch("http://localhost:8080/finance/dashboard");
         const data = await response.json();
 
         setBarData(data.barChart);
