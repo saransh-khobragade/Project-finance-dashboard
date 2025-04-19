@@ -31,19 +31,23 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
-	implementation("javax.annotation:javax.annotation-api:1.3.2")
-	implementation("javax.validation:validation-api:2.0.0.Final")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("javax.servlet:javax.servlet-api:4.0.1")
+
+	implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+	implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+	implementation("javax.annotation:javax.annotation-api:1.3.2")
+	implementation("javax.validation:validation-api:2.0.0.Final")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
-//	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
+
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation ("org.jetbrains.kotlin:kotlin-stdlib")
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
 
 kotlin {

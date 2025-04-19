@@ -11,12 +11,29 @@ tags:
     description: Everything about your Finance
 paths:
   /finance/dashboard:
-    get:
+    post:
       tags:
         - Dashboard
       summary: Get finance dashboard
       description: Get finance dashboard
       operationId: getFinanceDashboard
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+#                statementCategory:
+#                  type: string
+#                  description: Statement Category
+#                  enum:
+#                    - HDFC
+#                    - ICICI
+#                    - ZERODHA
       responses:
         '200':
           description: Successful operation
@@ -66,5 +83,20 @@ components:
       enum:
         - Food
         - Utility
+        - UPI
+        - Loan
+        - Investment
         - Mics
+        - Medical
+        - Rent
+        - Salary
+        - Saransh
+        - Grocery
+        - Commute
+        - Travel
+        - Mobile
+        - Entertainment
+        - Parlor
+        - Shopping
+        - Car
 
